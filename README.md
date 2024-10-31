@@ -7,8 +7,12 @@ Microservice that watches onchain events to onchain events.
   {
     chainId: number,
     contractAddress: string,
-    event: string
-  }
+    event: string,
+    target: {
+      queue: string,
+      name: string,
+    },
+  },
 ]
 ```
 
