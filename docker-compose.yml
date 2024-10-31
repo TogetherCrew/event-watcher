@@ -1,0 +1,12 @@
+services:
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    ports:
+      - 15672:15672
+      - 5672:5672
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 10s
+      retries: 2
+      start_period: 10s

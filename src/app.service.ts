@@ -12,6 +12,7 @@ import {
   PublicClient,
   WatchEventReturnType,
 } from 'viem';
+import { RabbitMQService } from './rabbitmq.service';
 
 type PublicClientDict = {
   [key: number]: PublicClient;
@@ -23,15 +24,22 @@ export class AppService implements OnModuleInit, OnModuleDestroy {
   private publicClients: PublicClientDict = {};
   private unwatches: WatchEventReturnType[] = [];
 
+  constructor(readonly rabbitmqService: RabbitMQService) { }
+
   onModuleInit() {
     watchables.forEach((watchable) => {
-      const { event, address, chain } = watchable;
+      const { event, address, chain, target } = watchable;
       const publicClient: PublicClient = this.createOrGetPublicClient(chain);
       this.unwatches.push(
         publicClient.watchEvent({
           address,
           event,
-          onLogs: (logs) => this.logger.log(logs),
+          onLogs: (logs) => {
+            this.logger.log(logs);
+            logs.forEach((log) =>
+              this.rabbitmqService.emitEvent(target.queue, target.name, log),
+            );
+          },
         }),
       );
     });
