@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { connect } from 'amqplib';
 import { AmqpConnectionManager, ChannelWrapper } from 'amqp-connection-manager';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
@@ -14,8 +15,11 @@ export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
   private channel: ChannelWrapper;
   private readonly logger = new Logger(RabbitMQService.name);
 
+  constructor(private readonly configService: ConfigService) { }
+
   async onModuleInit() {
-    this.connection = await connect('amqp://localhost:5672'); // Replace with your RabbitMQ server URL
+    const uri = this.configService.get<string>('rmq.uri');
+    this.connection = await connect(uri);
     this.channel = await this.connection.createChannel();
   }
 

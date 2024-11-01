@@ -31,7 +31,7 @@ export const watchables: Watchable[] = [
       'event Issue(address indexed account, uint indexed tokenId)',
     ),
     target: {
-      queue: 'API_QUEUE',
+      queue: 'SERVER_API',
       name: 'EngagementTokenIssued',
     },
   },
