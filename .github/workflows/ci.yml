@@ -9,6 +9,9 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  RMQ_HOST: host 
+  RMQ_USER: user
+  RMQ_PASS: pass
 
 jobs:
   lint:
