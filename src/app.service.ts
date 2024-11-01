@@ -24,7 +24,7 @@ export class AppService implements OnModuleInit, OnModuleDestroy {
   private publicClients: PublicClientDict = {};
   private unwatches: WatchEventReturnType[] = [];
 
-  constructor(readonly rabbitmqService: RabbitMQService) { }
+  constructor(readonly rabbitmqService: RabbitMQService) {}
 
   onModuleInit() {
     watchables.forEach((watchable) => {

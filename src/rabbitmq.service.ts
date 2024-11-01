@@ -15,7 +15,7 @@ export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
   private channel: ChannelWrapper;
   private readonly logger = new Logger(RabbitMQService.name);
 
-  constructor(private readonly configService: ConfigService) { }
+  constructor(private readonly configService: ConfigService) {}
 
   async onModuleInit() {
     const uri = this.configService.get<string>('rmq.uri');

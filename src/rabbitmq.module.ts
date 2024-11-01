@@ -16,4 +16,4 @@ import { rmqConfig } from './config/rabbitmq.config';
   providers: [RabbitMQService],
   exports: [RabbitMQService],
 })
-export class RabbitMQModule { }
+export class RabbitMQModule {}
