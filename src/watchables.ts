@@ -1,6 +1,7 @@
 import { parseAbiItem } from 'viem';
 import { sepolia, arbitrumSepolia } from 'viem/chains';
 import { Watchable } from './types';
+import { Event, Queue } from '@togethercrew.dev/tc-messagebroker';
 
 export const watchables: Watchable[] = [
   // Example: Watch WETH Transfer (Ethereum)
@@ -22,8 +23,8 @@ export const watchables: Watchable[] = [
       'event Issue(address indexed account, uint indexed tokenId)',
     ),
     target: {
-      queue: 'SERVER_API',
-      event: 'EngagementTokenIssued',
+      queue: Queue.SERVER_API,
+      event: Event.SERVER_API.EngagementTokenIssued,
     },
   },
   {
