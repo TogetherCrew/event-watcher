@@ -15,7 +15,7 @@ export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
   private channel: ChannelWrapper;
   private readonly logger = new Logger(RabbitMQService.name);
 
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) { }
 
   async onModuleInit() {
     const uri = this.configService.get<string>('rmq.uri');
@@ -23,9 +23,9 @@ export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
     this.channel = await this.connection.createChannel();
   }
 
-  async emitEvent(queue: string, name: string, data: any) {
+  async emitEvent(queue: string, event: string, data: any) {
     try {
-      const payload = JSON.stringify({ name, data }, (_, value) =>
+      const payload = JSON.stringify({ event, data }, (_, value) =>
         typeof value === 'bigint' ? value.toString() : value,
       );
       await this.channel.sendToQueue(queue, Buffer.from(payload));
