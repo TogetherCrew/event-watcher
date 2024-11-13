@@ -1,42 +1,30 @@
 // src/rabbitmq.service.ts
-import {
-  Injectable,
-  OnModuleInit,
-  OnModuleDestroy,
-  Logger,
-} from '@nestjs/common';
-import { connect } from 'amqplib';
-import { AmqpConnectionManager, ChannelWrapper } from 'amqp-connection-manager';
+import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import RabbitMQ from '@togethercrew.dev/tc-messagebroker';
 
 @Injectable()
-export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
-  private connection: AmqpConnectionManager;
-  private channel: ChannelWrapper;
+export class RabbitMQService implements OnModuleInit {
   private readonly logger = new Logger(RabbitMQService.name);
 
   constructor(private readonly configService: ConfigService) { }
 
   async onModuleInit() {
     const uri = this.configService.get<string>('rmq.uri');
-    this.connection = await connect(uri);
-    this.channel = await this.connection.createChannel();
+    RabbitMQ.connect(uri, 'event-watcher').then(() => {
+      this.logger.log('RabbitMQ was connected!');
+    });
   }
 
   async emitEvent(queue: string, event: string, data: any) {
     try {
-      const payload = JSON.stringify({ event, data }, (_, value) =>
+      const payload = JSON.stringify({ data }, (_, value) =>
         typeof value === 'bigint' ? value.toString() : value,
       );
-      await this.channel.sendToQueue(queue, Buffer.from(payload));
+      RabbitMQ.publish(queue, event, payload);
       this.logger.log(`Event sent to ${queue}:`, payload);
     } catch (error) {
       this.logger.error('Error sending event:', error);
     }
-  }
-
-  async onModuleDestroy() {
-    await this.channel.close();
-    await this.connection.close();
   }
 }
