@@ -1,5 +1,5 @@
 import { AbiEvent, Address, Chain, parseAbiItem } from 'viem';
-import { sepolia } from 'viem/chains';
+import { sepolia, arbitrumSepolia } from 'viem/chains';
 
 type Watchable = {
   chain: Chain;
@@ -33,6 +33,17 @@ export const watchables: Watchable[] = [
     target: {
       queue: 'SERVER_API',
       name: 'EngagementTokenIssued',
+    },
+  },
+  {
+    chain: arbitrumSepolia,
+    address: '0x14A19Db36DfB60C41932daE2d1c1b15Bd0f99792',
+    event: parseAbiItem(
+      'event Transfer(address indexed from, address indexed to, uint256 value)',
+    ),
+    target: {
+      queue: 'TestQueue',
+      name: 'TestEvent',
     },
   },
 ];
