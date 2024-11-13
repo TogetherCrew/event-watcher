@@ -2,13 +2,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppService } from './app.service';
 import { RabbitMQModule } from './rabbitmq.module';
+import { RpcModule } from './rpc.module';
 
 describe('AppService', () => {
   let service: AppService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [RabbitMQModule],
+      imports: [RabbitMQModule, RpcModule],
       providers: [AppService],
     }).compile();
 
