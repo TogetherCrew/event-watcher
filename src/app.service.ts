@@ -15,6 +15,7 @@ import {
 } from 'viem';
 import { RabbitMQService } from './rabbitmq.service';
 import { RpcService } from './rpc.service';
+import { Target } from './types';
 
 type PublicClientDict = {
   [key: number]: PublicClient;
@@ -59,12 +60,12 @@ export class AppService implements OnModuleInit, OnModuleDestroy {
 
   private onLogs(
     logs: WatchEventOnLogsParameter<AbiEvent, [AbiEvent], undefined, string>,
-    target,
+    target: Target,
   ) {
     try {
       this.logger.log(logs);
       logs.forEach((log) =>
-        this.rabbitmqService.emitEvent(target.queue, target.name, log),
+        this.rabbitmqService.emitEvent(target.queue, target.event, log),
       );
     } catch (error) {
       this.logger.error(`Error processing logs: ${error.message}`);

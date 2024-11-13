@@ -1,15 +1,6 @@
-import { AbiEvent, Address, Chain, parseAbiItem } from 'viem';
+import { parseAbiItem } from 'viem';
 import { sepolia, arbitrumSepolia } from 'viem/chains';
-
-type Watchable = {
-  chain: Chain;
-  address: Address;
-  event: AbiEvent;
-  target: {
-    queue: string;
-    event: string;
-  };
-};
+import { Watchable } from './types';
 
 export const watchables: Watchable[] = [
   // Example: Watch WETH Transfer (Ethereum)
