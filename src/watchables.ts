@@ -7,7 +7,7 @@ type Watchable = {
   event: AbiEvent;
   target: {
     queue: string;
-    name: string;
+    event: string;
   };
 };
 
@@ -21,7 +21,7 @@ export const watchables: Watchable[] = [
   //   ),
   //   target: {
   //     queue: 'TestQueue',
-  //     name: 'TestEvent',
+  //     event: 'TestEvent',
   //   },
   // },
   {
@@ -32,7 +32,7 @@ export const watchables: Watchable[] = [
     ),
     target: {
       queue: 'SERVER_API',
-      name: 'EngagementTokenIssued',
+      event: 'EngagementTokenIssued',
     },
   },
   {
@@ -43,7 +43,7 @@ export const watchables: Watchable[] = [
     ),
     target: {
       queue: 'TestQueue',
-      name: 'TestEvent',
+      event: 'TestEvent',
     },
   },
 ];
