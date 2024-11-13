@@ -12,6 +12,8 @@ env:
   RMQ_HOST: host 
   RMQ_USER: user
   RMQ_PASS: pass
+  ALCHEMY_API_KEY: alchemy-api-key
+  INFURA_API_KEY: infura-api-key
 
 jobs:
   lint:
