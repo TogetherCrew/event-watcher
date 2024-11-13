@@ -19,9 +19,6 @@ export class RabbitMQService implements OnModuleInit {
   async emitEvent(queue: string, event: string, data: any) {
     try {
       const payload = { data };
-      // const payload = JSON.stringify({ data }, (_, value) =>
-      //   typeof value === 'bigint' ? value.toString() : value,
-      // );
       RabbitMQ.publish(queue, event, payload);
       this.logger.log(`Event sent to ${queue}:`, payload);
     } catch (error) {
