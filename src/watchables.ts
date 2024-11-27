@@ -1,5 +1,5 @@
 import { parseAbiItem } from 'viem';
-import { sepolia, arbitrumSepolia, optimismSepolia } from 'viem/chains';
+import { baseSepolia } from 'viem/chains';
 import { Watchable } from './types';
 import { Event, Queue } from '@togethercrew.dev/tc-messagebroker';
 
@@ -17,8 +17,8 @@ export const watchables: Watchable[] = [
   //   },
   // },
   {
-    chain: optimismSepolia,
-    address: '0xd826769f1844CC83A16923D2AEF8a479E62Da732',
+    chain: baseSepolia,
+    address: '0xCc80586fd99f6804013eA2D43169fc60e466D354',
     event: parseAbiItem(
       'event Issue(address indexed account, uint indexed tokenId)',
     ),
