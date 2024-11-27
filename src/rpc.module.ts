@@ -16,4 +16,4 @@ import { RpcService } from './rpc.service';
   providers: [RpcService],
   exports: [RpcService],
 })
-export class RpcModule { }
+export class RpcModule {}

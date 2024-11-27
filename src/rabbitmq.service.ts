@@ -7,7 +7,7 @@ import RabbitMQ from '@togethercrew.dev/tc-messagebroker';
 export class RabbitMQService implements OnModuleInit {
   private readonly logger = new Logger(RabbitMQService.name);
 
-  constructor(private readonly configService: ConfigService) { }
+  constructor(private readonly configService: ConfigService) {}
 
   async onModuleInit() {
     const uri = this.configService.get<string>('rmq.uri');

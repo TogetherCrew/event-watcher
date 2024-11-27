@@ -7,4 +7,4 @@ import { RpcModule } from './rpc.module';
   imports: [RabbitMQModule, RpcModule],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

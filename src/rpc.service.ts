@@ -2,14 +2,14 @@
 import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { fallback, http, Transport } from 'viem';
-import { arbitrumSepolia, mainnet, sepolia } from 'viem/chains';
+import { arbitrumSepolia, baseSepolia, mainnet, sepolia } from 'viem/chains';
 
 @Injectable()
 export class RpcService implements OnModuleInit {
   private readonly logger = new Logger(RpcService.name);
   private transport = {};
 
-  constructor(private readonly configService: ConfigService) { }
+  constructor(private readonly configService: ConfigService) {}
 
   async onModuleInit() {
     const alchemyApiKey = this.configService.get<string>('rpc.alchemyApiKey');
@@ -27,6 +27,10 @@ export class RpcService implements OnModuleInit {
       [arbitrumSepolia.id]: fallback([
         http(`https://arb-sepolia.g.alchemy.com/v2/${alchemyApiKey}`),
         http(`https://arbitrum-sepolia.infura.io/v3/${infuraApiKey}`),
+      ]),
+      [baseSepolia.id]: fallback([
+        http(`https://base-sepolia.g.alchemy.com/v2/${alchemyApiKey}`),
+        http(`https://base-sepolia.infura.io/v3/${infuraApiKey}`),
       ]),
     };
   }

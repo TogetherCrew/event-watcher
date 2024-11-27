@@ -30,7 +30,7 @@ export class AppService implements OnModuleInit, OnModuleDestroy {
   constructor(
     readonly rabbitmqService: RabbitMQService,
     readonly rpcService: RpcService,
-  ) { }
+  ) {}
 
   onModuleInit() {
     try {
