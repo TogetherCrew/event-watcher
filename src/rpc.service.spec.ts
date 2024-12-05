@@ -2,7 +2,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigService } from '@nestjs/config';
 import { RpcService } from './rpc.service';
-import { arbitrum, sepolia, baseSepolia } from 'viem/chains';
+import { arbitrum, baseSepolia } from 'viem/chains';
 
 describe('RpcService', () => {
   let rpcService: RpcService;
