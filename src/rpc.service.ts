@@ -2,7 +2,7 @@
 import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { fallback, http, Transport } from 'viem';
-import { arbitrumSepolia, baseSepolia, mainnet, sepolia } from 'viem/chains';
+import { arbitrum, baseSepolia } from 'viem/chains';
 
 @Injectable()
 export class RpcService implements OnModuleInit {
@@ -16,21 +16,13 @@ export class RpcService implements OnModuleInit {
     const infuraApiKey = this.configService.get<string>('rpc.infuraApiKey');
 
     this.transport = {
-      [mainnet.id]: fallback([
-        http(`https://eth-mainnet.g.alchemy.com/v2/${alchemyApiKey}`),
-        http(`https://mainnet.infura.io/v3/${infuraApiKey}`),
-      ]),
-      [sepolia.id]: fallback([
-        http(`https://eth-sepolia.g.alchemy.com/v2/${alchemyApiKey}`),
-        http(`https://sepolia.infura.io/v3/${infuraApiKey}`),
-      ]),
-      [arbitrumSepolia.id]: fallback([
-        http(`https://arb-sepolia.g.alchemy.com/v2/${alchemyApiKey}`),
-        http(`https://arbitrum-sepolia.infura.io/v3/${infuraApiKey}`),
-      ]),
       [baseSepolia.id]: fallback([
         http(`https://base-sepolia.g.alchemy.com/v2/${alchemyApiKey}`),
         http(`https://base-sepolia.infura.io/v3/${infuraApiKey}`),
+      ]),
+      [arbitrum.id]: fallback([
+        http(`https://arb-mainnet.g.alchemy.com/v2/${alchemyApiKey}`),
+        http(`https://arbitrum-mainnet.infura.io/v3/${infuraApiKey}`),
       ]),
     };
   }
